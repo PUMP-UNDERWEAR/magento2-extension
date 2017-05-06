@@ -26,16 +26,16 @@ class ToOrderItem extends \Ess\M2ePro\Plugin\AbstractPlugin
 
     //########################################
 
-    public function aroundConvert($interceptor, \Closure $callback, $item)
+    public function aroundConvert($interceptor, \Closure $callback, ...$arguments)
     {
-        return $this->execute('convert', $interceptor, $callback, [$item]);
+        return $this->execute('convert', $interceptor, $callback, $arguments);
     }
 
-    // ---------------------------------------
+    // ----	-----------------------------------
 
     protected function processConvert($interceptor, \Closure $callback, $arguments)
     {
-        $orderItem = $callback($arguments[0]);
+        $orderItem = $callback(...$arguments);
 
         $this->eventManager->dispatch(
             'ess_sales_convert_quote_item_to_order_item',
