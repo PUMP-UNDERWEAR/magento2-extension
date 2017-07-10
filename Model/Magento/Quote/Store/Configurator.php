@@ -307,21 +307,18 @@ class Configurator extends \Ess\M2ePro\Model\AbstractModel
 
     //########################################
 
-    private function getStore()
-    {
-        return $this->quote->getStore();
-    }
-
-    // ---------------------------------------
-
     private function setStoreConfig($key, $value)
     {
-        $this->storeConfig->setValue($key, $value, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $this->getStore());
+        $this->storeConfig->setValue(
+            $key, $value, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $this->getStore()->getCode()
+        );
     }
 
     private function getStoreConfig($key)
     {
-        return $this->storeConfig->getValue($key, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $this->getStore());
+        return $this->storeConfig->getValue(
+            $key, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $this->getStore()->getCode()
+        );
     }
 
     //########################################
