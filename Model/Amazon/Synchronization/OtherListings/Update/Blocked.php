@@ -10,7 +10,7 @@ namespace Ess\M2ePro\Model\Amazon\Synchronization\OtherListings\Update;
 
 use Ess\M2ePro\Model\Processing\Runner;
 
-final class Blocked extends \Ess\M2ePro\Model\Amazon\Synchronization\OtherListings\AbstractModel
+class Blocked extends \Ess\M2ePro\Model\Amazon\Synchronization\OtherListings\AbstractModel
 {
     //########################################
 
@@ -121,8 +121,8 @@ final class Blocked extends \Ess\M2ePro\Model\Amazon\Synchronization\OtherListin
 
     private function isLockedAccount(\Ess\M2ePro\Model\Account $account)
     {
-        /** @var $lockItem \Ess\M2ePro\Model\LockItem */
-        $lockItem = $this->activeRecordFactory->getObject('LockItem');
+        /** @var $lockItem \Ess\M2ePro\Model\Lock\Item\Manager */
+        $lockItem = $this->modelFactory->getObject('Lock\Item\Manager');
         $lockItem->setNick(Blocked\ProcessingRunner::LOCK_ITEM_PREFIX.'_'.$account->getId());
         $lockItem->setMaxInactiveTime(Runner::MAX_LIFETIME);
 

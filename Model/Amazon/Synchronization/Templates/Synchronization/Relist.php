@@ -10,7 +10,7 @@ namespace Ess\M2ePro\Model\Amazon\Synchronization\Templates\Synchronization;
 
 use Ess\M2ePro\Model\Amazon\Template\Synchronization as SynchronizationPolicy;
 
-final class Relist extends \Ess\M2ePro\Model\Amazon\Synchronization\Templates\Synchronization\AbstractModel
+class Relist extends \Ess\M2ePro\Model\Amazon\Synchronization\Templates\Synchronization\AbstractModel
 {
     //########################################
 
@@ -161,7 +161,7 @@ final class Relist extends \Ess\M2ePro\Model\Amazon\Synchronization\Templates\Sy
         $amazonListingProduct = $listingProduct->getChildObject();
 
         if (!$amazonListingProduct->getAmazonSynchronizationTemplate()->isRelistSendData()) {
-            $configurator->setPartialMode();
+            $configurator->reset();
             $configurator->allowQty();
         }
     }

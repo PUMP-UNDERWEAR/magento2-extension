@@ -10,7 +10,7 @@ namespace Ess\M2ePro\Model\Ebay\Synchronization\Templates\Synchronization;
 
 use Ess\M2ePro\Model\Ebay\Template\Synchronization as SynchronizationPolicy;
 
-final class Stop extends AbstractModel
+class Stop extends AbstractModel
 {
     private $magentoProductCollectionFactory;
 
@@ -218,7 +218,7 @@ final class Stop extends AbstractModel
             return;
         }
 
-        $configurator->setPartialMode();
+        $configurator->reset();
         $configurator->allowQty();
         $configurator->allowVariations();
     }

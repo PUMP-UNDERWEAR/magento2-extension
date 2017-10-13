@@ -8,7 +8,7 @@
 
 namespace Ess\M2ePro\Model\Cron\Task;
 
-final class Servicing extends AbstractModel
+class Servicing extends AbstractModel
 {
     const NICK = 'servicing';
 
@@ -28,7 +28,9 @@ final class Servicing extends AbstractModel
 
     protected function performActions()
     {
-        return $this->modelFactory->getObject('Servicing\Dispatcher')->process();
+        $dispatcher = $this->modelFactory->getObject('Servicing\Dispatcher');
+        $dispatcher->setInitiator($this->getInitiator());
+        $dispatcher->process();
     }
 
     //########################################

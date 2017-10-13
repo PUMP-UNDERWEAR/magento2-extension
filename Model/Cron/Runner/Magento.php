@@ -8,7 +8,9 @@
 
 namespace Ess\M2ePro\Model\Cron\Runner;
 
-final class Magento extends AbstractModel
+use \Ess\M2ePro\Helper\Module\Cron\Service as CronService;
+
+class Magento extends AbstractModel
 {
     const MIN_DISTRIBUTION_EXECUTION_TIME = 300;
     const MAX_DISTRIBUTION_WAIT_INTERVAL  = 59;
@@ -48,8 +50,6 @@ final class Magento extends AbstractModel
 
     protected function initialize()
     {
-        usleep(rand(0,2000000));
-
         parent::initialize();
 
         $helper = $this->getHelper('Module\Cron');
@@ -58,7 +58,7 @@ final class Magento extends AbstractModel
             return;
         }
 
-        if ($helper->isLastRunMoreThan(\Ess\M2ePro\Helper\Module\Cron::RUNNER_SERVICE_MAX_INACTIVE_TIME)) {
+        if ($helper->isLastRunMoreThan(CronService::MAX_INACTIVE_TIME)) {
 
             $helper->setRunner(\Ess\M2ePro\Helper\Module\Cron::RUNNER_MAGENTO);
             $helper->setLastRunnerChange($this->getHelper('Data')->getCurrentGmtDate());

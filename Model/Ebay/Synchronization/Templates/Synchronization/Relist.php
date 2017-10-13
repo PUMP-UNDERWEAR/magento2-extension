@@ -10,7 +10,7 @@ namespace Ess\M2ePro\Model\Ebay\Synchronization\Templates\Synchronization;
 
 use Ess\M2ePro\Model\Ebay\Template\Synchronization as SynchronizationPolicy;
 
-final class Relist extends AbstractModel
+class Relist extends AbstractModel
 {
     private $cacheConfig;
 
@@ -208,7 +208,7 @@ final class Relist extends AbstractModel
         $ebayListingProduct = $listingProduct->getChildObject();
 
         if (!$ebayListingProduct->getEbaySynchronizationTemplate()->isRelistSendData()) {
-            $configurator->setPartialMode();
+            $configurator->reset();
             $configurator->allowQty();
             $configurator->allowPrice();
             $configurator->allowVariations();
