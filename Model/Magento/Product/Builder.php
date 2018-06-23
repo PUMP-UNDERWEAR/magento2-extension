@@ -153,29 +153,15 @@ class Builder extends \Ess\M2ePro\Model\AbstractModel
     //########################################
 
     private function createStockItem()
-    {
-        $stockItem = $this->stockItemFactory
-                          ->create(
-                              $this->product->getId(),
-                              $this->stockConfiguration->getDefaultScopeId()
-                          );
-        $stockItem->setProduct($this->product);
-
-        $stockItem->addData(array(
-            'qty'                         => $this->getData('qty'),
-            'stock_id'                    => \Magento\CatalogInventory\Model\Stock::DEFAULT_STOCK_ID,
-            'website_id'                  => $this->stockConfiguration->getDefaultScopeId(),
-            'is_in_stock'                 => 1,
-            'use_config_min_qty'          => 1,
-            'use_config_min_sale_qty'     => 1,
-            'use_config_max_sale_qty'     => 1,
-            'is_qty_decimal'              => 0,
-            'use_config_backorders'       => 1,
-            'use_config_notify_stock_qty' => 1
-        ));
-
-        $stockItem->save();
-    }
+{
+  /** @var $stockItem \Magento\CatalogInventory\Model\Stock\Item */
+  $stockItem = $this->stockRegistry->getStockItem($this->product->getId());
+  $stockItem
+    ->setQty($this->getQty())
+    ->setIsInStock(true)
+    ->setUseConfigBackorders(true);
+  $this->stockRegistry->updateStockItemBySku($this->product->getSku(), $stockItem);
+}
 
     private function makeGallery()
     {
